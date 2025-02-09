@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course_code }} - Course Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Course Code: {{ course_code }}</h1>
+
+        {% if is_staff %}
+            <h2>Student Marks</h2>
+           <center><table border="1">
+                <tr>
+                    <th>Student Name</th>
+                    <th>D.NO</th>
+                    <th>Marks</th>
+                </tr>
+                {% for student in student_marks %}
+                <tr>
+                    <td>{{ student[0] }}</td>
+                    <td>{{ student[1] }}</td>
+                    <td>{{ student[2] }}</td>
+                </tr>
+                {% endfor %}
+            </table></center>
+        {% else %}
+            <h2>MCQ Questions</h2>
+            <form method="POST">
+                {% for question in mcq_questions %}
+                <div>
+                    <p>{{ question[2] }}</p>
+                    <label>
+                        <input type="radio" name="question_{{ question[0] }}" value="a"> {{ question[3] }}
+                    </label>
+                    <label>
+                        <input type="radio" name="question_{{ question[0] }}" value="b"> {{ question[4] }}
+                    </label>
+                    <label>
+                        <input type="radio" name="question_{{ question[0] }}" value="c"> {{ question[5] }}
+                    </label>
+                    <label>
+                        <input type="radio" name="question_{{ question[0] }}" value="d"> {{ question[6] }}
+                    </label>
+                </div>
+                {% endfor %}
+                <button type="submit">Submit Answers</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% if is_student %}
+        <h2>Courses</h2>
+       <center><table border="1">
+            <tr>
+                <th>COURSE CODE</th>
+                <th>COURSE NAME</th>
+                <th>STAFF HANDLING</th>
+            </tr>
+            {% for course in courses %}
+            <tr>
+                <td><a href="{{ url_for('course_details', course_code=course[1], user=user) }}">{{ course[1] }}</a></td>
+                <td>{{ course[2] }}</td>
+                <td>{{ course[3] }}</td>
+            </tr>
+            {% endfor %}
+        </table></center>
+    {% else %}
+        <h2>Staff Dashboard</h2>
+       <center><table border="1">
+            <tr>
+                <th>COURSE CODE</th>
+                <th>COURSE NAME</th>
+                <th>CLASS</th>
+            </tr>
+            {% for course in staff_courses %}
+            <tr>
+                <td><a href="{{ url_for('course_details', course_code=course[0], user=user) }}">{{ course[0] }}</a></td>
+                <td>{{ course[1] }}</td>
+                <td>{{ course[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table></center>
+    {% endif %}    
+    </div>
+</body>
+</html>
